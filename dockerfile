@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:2.2.0-gpu
+FROM tensorflow/tensorflow:2.3.1-gpu
 ENV NVIDIA_VISIBLE_DEVICES all
 
 RUN apt-get update && apt-get install -y \

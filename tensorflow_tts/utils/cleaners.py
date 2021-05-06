@@ -18,16 +18,15 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-"""Cleaner module for english."""
 
+import re
+from unicodedata import normalize
+from tensorflow_tts.utils.korean import tokenize as ko_tokenize
+from tensorflow_tts.utils.number_norm import normalize_numbers
+from unidecode import unidecode
+from german_transliterate.core import GermanTransliterate
 
 # Regular expression matching whitespace:
-import re
-from unidecode import unidecode
-from unicodedata import normalize
-from tensorflow_tts.utils.number_norm import normalize_numbers
-
-
 _whitespace_re = re.compile(r"\s+")
 
 # List of (regular expression, replacement) pairs for abbreviations:
@@ -108,8 +107,21 @@ def english_cleaners(text):
 
 
 def korean_cleaners(text):
-    """Pipeline for Korean text,"""
+    """Pipeline for Korean text, including number and abbreviation expansion."""
+    text = ko_tokenize(
+        text
+    )  # '존경하는' --> ['ᄌ', 'ᅩ', 'ᆫ', 'ᄀ', 'ᅧ', 'ᆼ', 'ᄒ', 'ᅡ', 'ᄂ', 'ᅳ', 'ᆫ']
+    return text
+
+
+def scetts_cleaners(text):
+    """Pipeline for SCE-TTS text, including number and abbreviation expansion."""
     text = collapse_whitespace(text)
     text = nfd(text)
     return text
 
+
+def german_cleaners(text):
+    """Pipeline for German text, including number and abbreviation expansion."""
+    text = GermanTransliterate(replace={';': ',', ':': ' '}, sep_abbreviation=' -- ').transliterate(text)
+    return text

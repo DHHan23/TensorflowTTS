@@ -15,7 +15,9 @@ format: "npy"
 ###########################################################
 #         GENERATOR NETWORK ARCHITECTURE SETTING          #
 ###########################################################
-generator_params:
+model_type: "melgan_generator"
+
+melgan_generator_params:
     out_channels: 1               # Number of output channels.
     kernel_size: 7                # Kernel size of initial and final conv layers.
     filters: 512                  # Initial number of channels for conv layers.
@@ -27,7 +29,7 @@ generator_params:
 ###########################################################
 #       DISCRIMINATOR NETWORK ARCHITECTURE SETTING        #
 ###########################################################
-discriminator_params:
+melgan_discriminator_params:
     out_channels: 1                   # Number of output channels.
     scales: 3                         # Number of multi-scales.
     downsample_pooling: "AveragePooling1D"   # Pooling type for the input downsampling.
@@ -51,7 +53,7 @@ lambda_feat_match: 10.0
 ###########################################################
 #                  DATA LOADER SETTING                    #
 ###########################################################
-batch_size: 16                 # Batch size.
+batch_size: 16                 # Batch size for each GPU with assuming that gradient_accumulation_steps == 1.
 batch_max_steps: 8192          # Length of each audio in batch for training. Make sure dividable by hop_size.
 batch_max_steps_valid: 81920   # Length of each audio for validation. Make sure dividable by hope_size.
 remove_short_samples: true     # Whether to remove samples the length of which are less than batch_max_steps.
@@ -71,13 +73,15 @@ discriminator_optimizer_params:
     beta_1: 0.5
     beta_2: 0.9
 
+gradient_accumulation_steps: 1
 ###########################################################
 #                    INTERVAL SETTING                     #
 ###########################################################
 train_max_steps: 4000000                # Number of training steps.
-save_interval_steps: 10000               # Interval steps to save checkpoint.
-eval_interval_steps: 5000              # Interval steps to evaluate the network.
-log_interval_steps: 200                # Interval steps to record the training log.
+save_interval_steps: 3               # Interval steps to save checkpoint.
+eval_interval_steps: 2              # Interval steps to evaluate the network.
+log_interval_steps: 1                # Interval steps to record the training log.
+discriminator_train_start_steps: 0     # step to start training discriminator.
 
 ###########################################################
 #                     OTHER SETTING                       #
