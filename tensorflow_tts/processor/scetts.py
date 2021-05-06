@@ -43,8 +43,7 @@ class SceTTSProcessor(BaseProcessor):
     cleaner_names: str = "scetts_cleaners"
     positions = {
         "wave_file": 0,
-        "text": 1,
-        "text_norm": 2,
+        "text_norm": 1,
     }
     train_f_name: str = "metadata.csv"
 
@@ -91,8 +90,8 @@ class SceTTSProcessor(BaseProcessor):
         sequence = []
         # Check for curly braces and treat their contents as ARPAbet:
         if len(text):
-            sequence += _symbols_to_sequence(
-                _clean_text(text, [self.cleaner_names])
+            sequence += self._symbols_to_sequence(
+                self._clean_text(text, [self.cleaner_names])
             )
 
         # add eos tokens

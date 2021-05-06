@@ -369,7 +369,7 @@ def preprocess():
     dataset_cleaner = {
         "ljspeech": "english_cleaners",
         "kss": "korean_cleaners",
-        "kss": "scetts_cleaners",
+        "scetts": "scetts_cleaners",
         "libritts": None,
         "baker": None,
         "thorsten": "german_cleaners",
