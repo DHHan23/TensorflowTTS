@@ -12,15 +12,14 @@ RUN apt-get update && apt-get install -y \
     libsndfile1 \
  && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir ipython jupyter gdown tensorboard
-
 RUN mkdir /content
 ADD . /content/TensorflowTTS
 WORKDIR /content/TensorflowTTS
 
 RUN pip install --no-cache-dir .
 
-EXPOSE 8888
-EXPOSE 6006
+RUN pip install jupyterlab
 
-CMD ["/bin/bash"]
+EXPOSE 8888
+
+CMD ["jupyter", "lab", "--ip=*", "--port=8888", "--no-browser", "--allow-root"]

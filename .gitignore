@@ -41,4 +41,6 @@ dump_baker/
 dump_ljspeech/
 dump_kss/
 dump_libritts/
+dump_mcv/
 /notebooks/test_saved/
+mcv/

@@ -2,9 +2,12 @@ version: '2.3'
 services:
   tensorflowtts:
     build: .
+    image: scetts/tensorflowtts
     volumes:
       - .:/workspace
     runtime: nvidia
+    ports: 
+      - 8888:8888
     tty: true
     command: /bin/bash
     environment:
