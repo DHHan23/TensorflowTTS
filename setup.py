@@ -38,7 +38,7 @@ requirements = {
 #         "scikit-learn>=0.22.0",
 #         "pyworld>=0.2.10",
 #         "numba<=0.48",  # Fix No module named "numba.decorators"
-        "tensorflow-gpu~=2.5",
+        "tensorflow~=2.5",
         "tensorflow-addons>=0.9.1",
         "setuptools==64.0.2",
         "librosa==0.7.2",
